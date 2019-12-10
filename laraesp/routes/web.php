@@ -51,3 +51,6 @@ Route::resource('articles', 'ArticleController');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Ajax 
+Route::post('loadcat', 'HomeController@loadcat');

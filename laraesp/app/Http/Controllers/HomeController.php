@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['welcome']]);
+        $this->middleware('auth', ['except' => ['welcome', 'loadcat']]);
     }
 
     /**
@@ -29,11 +29,27 @@ class HomeController extends Controller
     }
 
     public function welcome() {
-        $arts = Article::orderBy('id', 'desc')->take(5)->get();
-        $cats = Category::all();
-        $artsbycats = Article::all();
+        $arts       = Article::orderBy('id', 'desc')->take(5)->get();
+        $cats       = Category::all();
+        $artsbycats = Article::all(); 
         return view('welcome')->with('arts', $arts)
                               ->with('cats', $cats)
                               ->with('artsbycats', $artsbycats);
+    }
+
+    public function loadcat(Request $request) {
+        if($request->cid == 0){
+            //return dd($request->all());
+            $cats        = Category::all();
+            $artsbycats = Article::all();
+            return view('loadcat')->with('cats', $cats)
+                                ->with('artsbycats', $artsbycats);
+        } else {
+            //return dd($request->all());
+            $cat        = Category::where('id', $request->cid)->first();
+            $artsbycats = Article::where('category_id', $request->cid)->get();
+            return view('loadcat')->with('cat', $cat)
+                                  ->with('artsbycats', $artsbycats);
+        }
     }
 }

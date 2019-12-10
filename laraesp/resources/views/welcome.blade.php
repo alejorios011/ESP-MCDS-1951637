@@ -36,30 +36,49 @@
         </div>
     </div>
     <div class="row">
-      <div class="col-xl-12">
+      <div class="col-xl-2 offset-xl-5">
+        <div class="form-group">
+          <label for="catid"> <i class="fa fa-filter"></i> Filtrar por Categoria:</label>
+          @csrf
+          <select name="catid" id="catid" class="form-control">
+            <option value="">Seleccione...</option>
+            <option value=0>Todas</option>
+            @foreach ($cats as $cat)
+              <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+            @endforeach
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12" id="content">
         @foreach ($cats as $cat)
-        <h3 class="h3"><i class="fa fa-list"></i>{{ $cat->name }}</h3>
-        <hr>
+          <h3 class="h3"> <i class="fa fa-list"></i> {{ $cat->name }}</h3>
+          <hr>
           <div class="row">
             @foreach ($artsbycats as $abc)
               @if ($abc->category_id == $cat->id)
               <div class="col-xl-3 mb-4">
-                <div class="card" style="width: 18rem; height: 24rem;">
-                    <img src="{{ asset($abc->image)}}" class="card-img-top">
+                <div class="card" style="height: 26rem">
+                    <img src="{{ asset($abc->image) }}" class="card-img-top">
                     <div class="card-body">
-                      <span class="badge badge-dark">{{ $abc->category->name }}</span>
-                      <h5 class="card-title">{{$abc->name}}</h5>
-                      <p class="card-text">{{$abc->content}}</p>
-                      <a href="#" class="btn btn-danger">Ver más</a>
+                      <span class="badge badge-dark"> {{ $abc->category->name }} </span>
+                      <h5 class="card-title">{{ $abc->name }}</h5>
+                      <p class="card-text">{{ $abc->content }}</p>
+                      <a href="#" class="btn btn-danger">
+                        Ver <i class="fa fa-plus"></i>
+                      </a>
                     </div>
+                  </div>
                 </div>
-              </div>
-              @endif
-            @endforeach 
-          </div>
+                @endif
+            @endforeach
+        </div>
         @endforeach
       </div>
-    </div>
+    </div>   
+    
+
 </div>
 
 @endsection
