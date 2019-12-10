@@ -7,6 +7,7 @@ use Auth;
 use App\Article;
 use App\Http\Requests\ArticleRequest;
 use App\Category;
+use PDF;
 
 class ArticleController extends Controller
 {
@@ -131,5 +132,12 @@ class ArticleController extends Controller
         if($art->delete()) {
             return redirect('articles')->with('message', 'El Artículo '.$art->name.' fue eliminado con exito!');
        }
+    }
+
+    // PDF
+    public function pdf() {
+        $arts = Article::all();
+        $pdf = PDF::loadView('articles.pdf', compact('arts', $arts));
+        return $pdf->download('articles.pdf');
     }
 }

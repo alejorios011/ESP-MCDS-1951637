@@ -15,6 +15,10 @@
 					<i class="fa fa-plus"></i> 
 					Adicionar Artículo
 				</a>
+			<a class="btn btn-primary" href="{{ url('articlespdf') }}">
+						<i class="fa fa-file-pdf-o"></i> 
+					Descargar Articulos
+				</a>
 				<hr>
 				@if (session('message'))
 					<div class="alert alert-success alert-dismissible fade show">
